@@ -16,28 +16,27 @@ kv = '''
 Screen:
     MDBoxLayout:
         orientation: 'vertical'
-        MDToolbar: 
-            type:'top'
-            title: 'Vaidehi'
+        MDToolbar:
+            title: 'Anurag'
             md_bg_color: 207/255.0,180/255.0,191/255.0,1
             specific_text_color: 1,1,1,1
             elevation: 8    
-        
         ScrollView:
             MDList:
                 id:container
-                
-        MDFloatLayout:
         
-            MDFloatingActionButton:
-                size_hint: None,None
-                size: 40,40
-                icon: "plus"
-                md_bg_color: 207/255.0,180/255.0,191/255.0,1
-                text_color: 1,1,1,1
-                pos_hint: {'center_x':0.5,'center_y':0.2}
-                elevation: 8
-                on_release: app.show_dialog()
+        MDFloatingActionButton:
+            size_hint: None,None
+            size: 40,40
+            icon: "plus"
+            md_bg_color: 207/255.0,180/255.0,191/255.0,1
+            text_color: 1,1,1,1
+            pos_hint: {'center_x':0.5,'center_y':0.15}
+            elevation_normal: 8
+            on_release: app.show_dialog()
+            
+        MDFlatButton:
+            size:10,10
 
 <content>:
     id:content
@@ -51,8 +50,10 @@ Screen:
         required: True                                                      
 '''
 
+
 class content(MDBoxLayout):
     pass
+
 
 class MainApp(MDApp):
     def build(self):
