@@ -1,39 +1,62 @@
+from kivy.lang import Builder
+from kivy.uix.floatlayout import FloatLayout
+
 from kivymd.app import MDApp
-from kivy.lang.builder import Builder
-from kivy.core.window import Window
+from kivymd.uix.tab import MDTabsBase
+from kivymd.icon_definitions import md_icons
 
-Window.size = (300, 500)
+KV = '''
+BoxLayout:
+    orientation: "vertical"
 
-kv = '''
-Screen:
-    BoxLayout:
-        adaptive_height: True
-        adaptive_height: True
-        adaptive_size: True
-        orientation:'vertical'
-        MDToolbar:
-            title: 'Example'
-            elevation: 10
-        
-        MDLabel:
-            text:'hi'
-            halign:'center'
+    MDToolbar:
+        title: "Example Tabs"
+
+    MDTabs:
+        id: tabs
+        anim_duration:0.2
+        tab_indicator_anim:True
+        on_tab_switch: app.on_tab_switch(*args)
+
+
+<Tab>:
+
+    MDList:
+        OneLineListItem:
+            text:'Heyy Bro'
             
-        
-            
-        MDFloatingActionButton:
-            icon: 'plus'
-            pos_hint: {'center_x':0.5,'center_y':0.5}
-            
-        
-            
+    MDFlatButton:
+        text:'OK'
 '''
 
 
-class ThisApp(MDApp):
+class Tab(FloatLayout, MDTabsBase):
+    '''Class implementing content for a tab.'''
+
+
+class Example(MDApp):
+    icons = list(md_icons.keys())[15:30]
+
     def build(self):
-        s = Builder.load_string(kv)
-        return (s)
+        return Builder.load_string(KV)
+
+    def on_start(self):
+        self.root.ids.tabs.add_widget(Tab(text='Hi'))
+        self.root.ids.tabs.add_widget(Tab(text='Heyy'))
+        self.root.ids.tabs.add_widget(Tab(text='How'))
+        self.root.ids.tabs.add_widget(Tab(text='Sup'))
 
 
-ThisApp().run()
+    def on_tab_switch(self, instance_tabs, instance_tab, instance_tab_label, tab_text):
+        '''Called when switching tabs.
+
+        :type instance_tabs: <kivymd.uix.tab.MDTabs object>;
+        :param instance_tab: <__main__.Tab object>;
+        :param instance_tab_label: <kivymd.uix.tab.MDTabsLabel object>;
+        :param tab_text: text or name icon of tab;
+        '''
+
+        pass
+
+
+Example().run()
